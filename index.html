@@ -21,6 +21,7 @@
   --ivory:#fffaf1;
   --gold:#c9a675;
   --dark:#1c1b19;
+  --line:rgba(243,226,199,.34);
 }
 
 *{
@@ -53,17 +54,18 @@ body{
   width:100%;
   height:100%;
   object-fit:cover;
+  object-position:center center;
   z-index:-3;
 }
 
-.page:before{
+.page::before{
   content:"";
   position:absolute;
   inset:0;
   z-index:-2;
 }
 
-.page:after{
+.page::after{
   content:"";
   position:absolute;
   inset:0;
@@ -71,7 +73,7 @@ body{
   pointer-events:none;
 }
 
-.p1:before{
+.p1::before{
   background:linear-gradient(
     90deg,
     rgba(13,13,12,.83),
@@ -80,7 +82,7 @@ body{
   );
 }
 
-.p1:after{
+.p1::after{
   background:
     repeating-linear-gradient(
       105deg,
@@ -94,7 +96,7 @@ body{
     );
 }
 
-.p2:before{
+.p2::before{
   background:linear-gradient(
     180deg,
     rgba(34,19,11,.24),
@@ -102,7 +104,7 @@ body{
   );
 }
 
-.p2:after{
+.p2::after{
   background:radial-gradient(
     ellipse at 50% 12%,
     rgba(245,194,121,.20),
@@ -110,7 +112,7 @@ body{
   );
 }
 
-.p3:before{
+.p3::before{
   background:linear-gradient(
     90deg,
     rgba(11,17,14,.64),
@@ -119,7 +121,7 @@ body{
   );
 }
 
-.p3:after{
+.p3::after{
   background:linear-gradient(
     180deg,
     rgba(255,224,177,.13),
@@ -128,38 +130,17 @@ body{
   );
 }
 
-.gallery{
-  background:linear-gradient(145deg,#201d1a,#342b23);
-  padding:28px 18px;
-}
-
-.gallery:before{
-  background:
-    radial-gradient(
-      ellipse at 20% 10%,
-      rgba(201,166,117,.18),
-      transparent 42%
-    ),
-    radial-gradient(
-      ellipse at 80% 90%,
-      rgba(154,101,67,.18),
-      transparent 44%
-    );
-}
-
-.gallery:after{
-  background:repeating-linear-gradient(
-    135deg,
-    rgba(255,255,255,.025) 0 1px,
-    transparent 1px 11px
-  );
-}
-
-.gallery-wrap{
-  width:min(100%,620px);
+.panel{
+  width:min(100%,570px);
   text-align:center;
-  position:relative;
-  z-index:1;
+  padding:31px 24px;
+  border:1px solid rgba(243,226,199,.38);
+  background:rgba(23,22,20,.22);
+  box-shadow:0 18px 55px rgba(0,0,0,.28);
+}
+
+.left{
+  transform:translateX(-11%);
 }
 
 .eyebrow{
@@ -177,11 +158,11 @@ body{
 
 h1,
 h2{
+  margin:9px 0;
+  color:#fffaf1;
   font-weight:400;
   letter-spacing:.18em;
   text-indent:.18em;
-  margin:9px 0;
-  color:#fffaf1;
   text-shadow:0 2px 13px #000;
 }
 
@@ -208,8 +189,8 @@ h2{
   color:var(--gold);
 }
 
-.rule:before,
-.rule:after{
+.rule::before,
+.rule::after{
   content:"";
   height:1px;
   flex:1;
@@ -229,25 +210,25 @@ h2{
 }
 
 .date{
+  margin:8px 0;
   font-size:25px;
   letter-spacing:.06em;
-  margin:8px 0;
 }
 
 .place,
 .copy{
+  color:#f3e9dc;
   font-size:17px;
   line-height:1.9;
   letter-spacing:.04em;
-  color:#f3e9dc;
 }
 
 .closing{
-  font-size:16px;
-  letter-spacing:.13em;
-  line-height:1.8;
   margin:0;
   color:#ead9c3;
+  font-size:16px;
+  line-height:1.8;
+  letter-spacing:.13em;
 }
 
 .quote{
@@ -272,12 +253,12 @@ h2{
 .down{
   position:absolute;
   bottom:20px;
+  z-index:2;
   color:#fff8ef;
   text-decoration:none;
   font:12px system-ui,sans-serif;
   letter-spacing:.12em;
   animation:float 1.8s ease-in-out infinite;
-  z-index:2;
 }
 
 @keyframes float{
@@ -304,43 +285,70 @@ h2{
 }
 
 .map a.primary{
+  border:0;
   background:#d0ae7a;
   color:#211e19;
-  border:0;
 }
 
 .note{
-  font-size:13px;
-  color:#dbc7ab;
   margin:10px 0 0;
+  color:#dbc7ab;
+  font-size:13px;
 }
 
-/* 照片墙：完整显示，不裁切 */
+/* 照片墙：完整比例展示 */
+.gallery{
+  background:linear-gradient(145deg,#201d1a,#342b23);
+  padding:30px 18px 44px;
+}
+
+.gallery::before{
+  background:
+    radial-gradient(
+      ellipse at 20% 10%,
+      rgba(201,166,117,.18),
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at 80% 90%,
+      rgba(154,101,67,.18),
+      transparent 44%
+    );
+}
+
+.gallery::after{
+  background:repeating-linear-gradient(
+    135deg,
+    rgba(255,255,255,.02) 0 1px,
+    transparent 1px 12px
+  );
+}
+
+.gallery-wrap{
+  width:min(100%,620px);
+  position:relative;
+  z-index:1;
+  text-align:center;
+}
+
 .gallery-grid{
   display:grid;
   grid-template-columns:1fr;
   gap:14px;
-  max-width:620px;
+  width:100%;
   margin:24px auto 0;
-  text-align:left;
 }
 
 .gallery-grid figure{
   margin:0;
   overflow:hidden;
-  border:1px solid rgba(243,226,199,.32);
+  border:1px solid var(--line);
   background:#171513;
 }
 
 .gallery-grid img{
   display:block;
   width:100%;
-  height:auto;
-  object-fit:contain;
-}
-
-.gallery-main,
-.gallery-side{
   height:auto;
 }
 
@@ -353,6 +361,10 @@ h2{
 }
 
 @media(max-width:600px){
+  .page{
+    padding:18px;
+  }
+
   .left{
     transform:none;
   }
@@ -370,8 +382,12 @@ h2{
     font-size:15px;
   }
 
+  .quote{
+    font-size:18px;
+  }
+
   .gallery{
-    padding:24px 18px;
+    padding:24px 18px 42px;
   }
 
   .gallery-wrap{
@@ -379,20 +395,8 @@ h2{
   }
 
   .gallery-grid{
-    grid-template-columns:1fr;
     gap:12px;
     max-width:390px;
-  }
-
-  .gallery-main,
-  .gallery-side{
-    height:auto;
-    min-height:0;
-    max-height:none;
-  }
-
-  .gallery-main{
-    grid-row:auto;
   }
 }
 </style>
@@ -439,6 +443,7 @@ h2{
 <section class="page p2" id="rsvp">
   <img
     class="photo"
+    style="object-position:center 18%;"
     src="%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260819102905_195_2.jpg"
     alt="庆祝婚纱照"
     loading="lazy"
@@ -484,7 +489,7 @@ h2{
     <div class="rule"><span>❦</span></div>
 
     <div class="gallery-grid">
-      <figure class="gallery-main">
+      <figure>
         <img
           src="gallery-1.jpg"
           alt="我们的瞬间之一"
@@ -493,7 +498,7 @@ h2{
         >
       </figure>
 
-      <figure class="gallery-side">
+      <figure>
         <img
           src="gallery-2.jpg"
           alt="我们的瞬间之二"
@@ -502,7 +507,7 @@ h2{
         >
       </figure>
 
-      <figure class="gallery-side">
+      <figure>
         <img
           src="gallery-3.jpg"
           alt="我们的瞬间之三"
